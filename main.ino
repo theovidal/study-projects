@@ -3,65 +3,83 @@
  * - Re-activate the potentiometer to control lights' speed
  */
 
-// Including the TinkerKit library
-#include <TinkerKit.h>
+// ----- DEFINITIONS  -----
+#define O0 11
+#define O1 10
+#define O2 9
+#define O3 6
+#define O4 5
+#define O5 3
+#define I0 A0
+#define I1 A1
+#define I2 A2
+#define I3 A3
+#define I4 A4
+#define I5 A5
 
-// ----- VARIABLES -----
-TKLed greenFirelight(O0);
-TKLed redFirelight(O1);
-TKLed yellowFirelight(O2);
+int redCarLight = O0;
+int yellowCarLight = O1;
+int greenCarLight = O2;
 
-TKLed greenPedestrian(O4);
-TKLed redPedestrian(O5);
-TKButton pedestrianButton(I0);
+int redPedestrianLight = O4;
+int greenPedestrianLight = O5;
+int pedestrianButton = I0;
 
-int speed = 10000;
+int lightDuration = 10000;
 
-// ----- SETUP -----
+// ----- PROPGRAM SETUP -----
 void setup()
 {
+  pinMode(redCarLight, OUTPUT);
+  pinMode(yellowCarLight, OUTPUT);
+  pinMode(greenCarLight, OUTPUT);
+
+  pinMode(redPedestrianLight, OUTPUT);
+  pinMode(greenPedestrianLight, OUTPUT);
+  pinMode(pedestrianButton, INPUT);
+
   Serial.begin(9600);
 }
 
-// ----- LOOP -----
+// -----  PROGRAM LOOP  -----
 void loop()
 {
   // Red light
-  redFirelight.on();
+  digitalWrite(redCarLight, HIGH);
   delay(2500);
 
   // Pedestrian lights
-  redPedestrian.off();
-  greenPedestrian.on();
-  delay(speed);
-  greenPedestrian.off();
-  redPedestrian.on();
+  digitalWrite(redPedestrianLight, LOW);
+  digitalWrite(greenPedestrianLight, HIGH);
+  delay(lightDuration);
+  digitalWrite(greenPedestrianLight, LOW);
+  digitalWrite(redPedestrianLight, HIGH);
 
   delay(2500);
-  redFirelight.off();
+  digitalWrite(redCarLight, LOW);
 
   // Green light
-  greenFirelight.on();
-  int checkRate = 20;
-  for (int actualDelay = 0; actualDelay < speed; actualDelay += checkRate)
+  digitalWrite(greenCarLight, HIGH);
+  int refreshRate = 20;
+  for (int elapsedTime = 0; elapsedTime < lightDuration; elapsedTime += refreshRate)
   {
-    delay(checkRate);
-    if (pedestrianButton.pressed() == true)
+    delay(refreshRate);
+    if (digitalRead(pedestrianButton) == HIGH)
     {
       break;
     }
   }
-  greenFirelight.off();
+  digitalWrite(greenCarLight, HIGH);
 
   // Yellow light
-  yellowFirelight.on();
+  digitalWrite(yellowCarLight, HIGH);
   delay(2500);
-  yellowFirelight.off();
+  digitalWrite(yellowCarLight, LOW);
 }
 
 // Useless : we no longer have a potentiometer
-/*int getSpeed() {
-  int speed = slider.read();
+/*int getDuration() {
+  int lightDuration = slider.read();
   Serial.println(speed);
   return speed;
 }*/
