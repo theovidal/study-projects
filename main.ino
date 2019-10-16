@@ -1,6 +1,6 @@
 /*
  * Todo :
- * - Re-activate the potentiometer to control lights' speed
+ * - Make helper classes (Light, Button, Slider)
  */
 
 // ----- DEFINITIONS  -----
@@ -17,12 +17,13 @@
 #define I4 A4
 #define I5 A5
 
-int redCarLight = O0;
+int greenCarLight = O0;
 int yellowCarLight = O1;
-int greenCarLight = O2;
+int redCarLight = O2;
 
-int redPedestrianLight = O4;
-int greenPedestrianLight = O5;
+int greenPedestrianLight = O4;
+int redPedestrianLight = O5;
+
 int pedestrianButton = I0;
 
 int lightDuration = 10000;
@@ -69,7 +70,7 @@ void loop()
       break;
     }
   }
-  digitalWrite(greenCarLight, HIGH);
+  digitalWrite(greenCarLight, LOW);
 
   // Yellow light
   digitalWrite(yellowCarLight, HIGH);
