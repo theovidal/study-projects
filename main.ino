@@ -25,8 +25,7 @@ int greenPedestrianLight = O4;
 int redPedestrianLight = O5;
 
 int pedestrianButton = I0;
-
-int lightDuration = 10000;
+int speedSlider = I5;
 
 // ----- PROPGRAM SETUP -----
 void setup()
@@ -52,7 +51,7 @@ void loop()
   // Pedestrian lights
   digitalWrite(redPedestrianLight, LOW);
   digitalWrite(greenPedestrianLight, HIGH);
-  delay(lightDuration);
+  delay(lightDuration());
   digitalWrite(greenPedestrianLight, LOW);
   digitalWrite(redPedestrianLight, HIGH);
 
@@ -62,7 +61,7 @@ void loop()
   // Green light
   digitalWrite(greenCarLight, HIGH);
   int refreshRate = 20;
-  for (int elapsedTime = 0; elapsedTime < lightDuration; elapsedTime += refreshRate)
+  for (int elapsedTime = 0; elapsedTime < lightDuration(); elapsedTime += refreshRate)
   {
     delay(refreshRate);
     if (digitalRead(pedestrianButton) == HIGH)
@@ -78,9 +77,12 @@ void loop()
   digitalWrite(yellowCarLight, LOW);
 }
 
-// Useless : we no longer have a potentiometer
-/*int getDuration() {
-  int lightDuration = slider.read();
-  Serial.println(speed);
-  return speed;
-}*/
+// lightDuration fetches the duration of the light according to the slider.
+int lightDuration()
+{
+  // Affine function : (8000/1023)x + 2000
+  // We want a value between 2000ms and 10000ms, and we have the slider value from 0 to 1023.
+  int duration = 7.8 * analogRead(speedSlider) + 2000;
+  Serial.println(duration);
+  return duration;
+}
