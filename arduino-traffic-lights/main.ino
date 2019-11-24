@@ -25,7 +25,7 @@ int greenPedestrianLight = O4;
 int redPedestrianLight = O5;
 
 int pedestrianButton = I0;
-int lightSensor = I3;
+int lightSensor = I2;
 int speedSlider = I5;
 
 // ----- PROPGRAM SETUP -----
@@ -50,32 +50,36 @@ void loop()
   delay(2500);
 
   // Pedestrian lights
-  analogWrite(redPedestrianLight, lightIntensity());
+  analogWrite(redPedestrianLight, LOW);
   analogWrite(greenPedestrianLight, lightIntensity());
   delay(lightDuration());
-  analogWrite(greenPedestrianLight, lightIntensity());
+  analogWrite(greenPedestrianLight, LOW);
   analogWrite(redPedestrianLight, lightIntensity());
 
   delay(2500);
-  analogWrite(redCarLight, lightIntensity());
+  analogWrite(redCarLight, LOW);
 
   // Green light
   analogWrite(greenCarLight, HIGH);
   int refreshRate = 20;
   for (int elapsedTime = 0; elapsedTime < lightDuration(); elapsedTime += refreshRate)
   {
-    delay(refreshRate);
     if (digitalRead(pedestrianButton) == HIGH)
     {
       break;
     }
+    else
+    {
+      analogWrite(greenCarLight, lightIntensity())
+    }
+    delay(refreshRate);
   }
-  analogWrite(greenCarLight, lightIntensity());
+  analogWrite(greenCarLight, LOW);
 
   // Yellow light
   analogWrite(yellowCarLight, lightIntensity());
   delay(2500);
-  analogWrite(yellowCarLight, lightIntensity());
+  analogWrite(yellowCarLight, LOW);
 }
 
 // lightDuration fetches the duration of the light according to the slider.
