@@ -1,6 +1,6 @@
 # Arduino Christmas garland
 
-🚦 A pretty and modular Christmas garland made with an Arduino
+💡 A pretty and modular Christmas garland made with an Arduino
 
 - [🌈 How it works](#-how-it-works)
 - [🔌 Hardware setup](#-hardware-setup)
