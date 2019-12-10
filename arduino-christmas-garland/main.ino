@@ -26,21 +26,17 @@ void switchMode() {
 
 // ------------- CLASS DECLARATION -------------
 
-class Mode
-{
-public:
-  Mode(int leds[10], int states[10], int times[10])
-  {
-    for (int i = 0; i < 10; i++)
-    {
+class Mode {
+  public:
+  Mode(int leds[10], int states[10], int times[10]) {
+    for (int i = 0; i < 10; i++) {
       _leds[i] = leds[i];
       _states[i] = states[i];
       _times[i] = times[i];
     }
   }
 
-  void activateState(int index)
-  {
+  void activateState(int index) {
     digitalWrite(_leds[index], _states[index]);
     for (int elapsedTime = 0; elapsedTime < _times[index]; elapsedTime += 20) {
       if (digitalRead(button) == HIGH) {
@@ -51,12 +47,11 @@ public:
     }
   }
 
-  int getSize()
-  {
+  int getSize() {
     return sizeof(_leds) / sizeof(*_leds);
   }
 
-private:
+  private:
   int _leds[10];
   int _states[10];
   int _times[10];
@@ -74,7 +69,12 @@ int modeBStates[] = { HIGH, LOW, HIGH, LOW, HIGH, LOW, HIGH, LOW, HIGH, LOW };
 int modeBTimes[] =  { 500,  0,   500,  0,   500,  0,   500,  0,   500,  0   };
 Mode modeB(modeBPins, modeBStates, modeBTimes);
 
-Mode modes[] = { modeA, modeB };
+int modeCPins[] =   { O0,   O2,   O4,   O0,  O2,  O4,  O1,   O3,   O1,  O3  };
+int modeCStates[] = { HIGH, HIGH, HIGH, LOW, LOW, LOW, HIGH, HIGH, LOW, LOW };
+int modeCTimes[] =  { 0,    0,    500,  0,   0,   0,   0,    500,  0,   0   };
+Mode modeC(modeCPins, modeCStates, modeCTimes);
+
+Mode modes[] = { modeA, modeB, modeC };
 
 // ------------- PROGRAM SETUP AND LOOP -------------
 
