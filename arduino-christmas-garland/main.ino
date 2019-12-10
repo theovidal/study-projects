@@ -6,6 +6,23 @@
 #define O3 6
 #define O4 5
 #define O9 3
+#define I0 A0
+
+int button = I0;
+int currentMode = 0;
+
+void switchMode() {
+  ++currentMode;
+  if (currentMode == 3) {
+    currentMode = 0;
+  }
+  digitalWrite(O0, LOW);
+  digitalWrite(O1, LOW);
+  digitalWrite(O2, LOW);
+  digitalWrite(O3, LOW);
+  digitalWrite(O4, LOW);
+  delay(200);
+}
 
 // ------------- CLASS DECLARATION -------------
 
@@ -25,7 +42,13 @@ public:
   void activateState(int index)
   {
     digitalWrite(_leds[index], _states[index]);
-    delay(_times[index]);
+    for (int elapsedTime = 0; elapsedTime < _times[index]; elapsedTime += 20) {
+      if (digitalRead(button) == HIGH) {
+        switchMode();
+        break;
+      }
+      delay(20);
+    }
   }
 
   int getSize()
@@ -51,6 +74,8 @@ int modeBStates[] = { HIGH, LOW, HIGH, LOW, HIGH, LOW, HIGH, LOW, HIGH, LOW };
 int modeBTimes[] =  { 500,  0,   500,  0,   500,  0,   500,  0,   500,  0   };
 Mode modeB(modeBPins, modeBStates, modeBTimes);
 
+Mode modes[] = { modeA, modeB };
+
 // ------------- PROGRAM SETUP AND LOOP -------------
 
 void setup() {
@@ -61,7 +86,7 @@ void setup() {
   pinMode(O4, OUTPUT);
 }
 void loop() {
-  for (int i = 0; i < modeA.getSize(); i++) {
-    modeA.activateState(i);
+  for (int i = 0; i < 10; i++) {
+    modes[currentMode].activateState(i);
   }
 }
