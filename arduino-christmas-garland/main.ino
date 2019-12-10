@@ -12,9 +12,9 @@
 class Mode
 {
 public:
-  Mode(int leds[], int states[], int times[], int actionsNumber)
+  Mode(int leds[10], int states[10], int times[10])
   {
-    for (int i = 0; i < actionsNumber; i++)
+    for (int i = 0; i < 10; i++)
     {
       _leds[i] = leds[i];
       _states[i] = states[i];
@@ -34,24 +34,24 @@ public:
   }
 
 private:
-  int _leds[];
-  int _states[];
-  int _times[];
+  int _leds[10];
+  int _states[10];
+  int _times[10];
 };
 
-// ------------- MODES -------------
+// ------------- MODES DEFINITION -------------
 
 int modeAPins[] =   { O0,   O1,   O2,   O3,   O4,   O0,  O1,  O2,  O3,  O4   };
 int modeAStates[] = { HIGH, HIGH, HIGH, HIGH, HIGH, LOW, LOW, LOW, LOW, LOW  };
 int modeATimes[] =  { 0,    0,    0,    0,    1000, 0,   0,   0,   0,   1000 };
-Mode modeA(modeAPins, modeAStates, modeATimes, 10);
+Mode modeA(modeAPins, modeAStates, modeATimes);
 
 int modeBPins[] =   { O0,   O0,  O1,   O1,  O2,   O2,  O3,   O3,  O4,   O4  };
 int modeBStates[] = { HIGH, LOW, HIGH, LOW, HIGH, LOW, HIGH, LOW, HIGH, LOW };
 int modeBTimes[] =  { 500,  0,   500,  0,   500,  0,   500,  0,   500,  0   };
-Mode modeB(modeBPins, modeBStates, modeBTimes, 10);
+Mode modeB(modeBPins, modeBStates, modeBTimes);
 
-// ------------- PROGRAM SETUP -------------
+// ------------- PROGRAM SETUP AND LOOP -------------
 
 void setup() {
   pinMode(O0, OUTPUT);
@@ -60,9 +60,6 @@ void setup() {
   pinMode(O3, OUTPUT);
   pinMode(O4, OUTPUT);
 }
-
-// ------------- PROGRAM LOOP -------------
-
 void loop() {
   for (int i = 0; i < modeA.getSize(); i++) {
     modeA.activateState(i);
