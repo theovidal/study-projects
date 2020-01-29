@@ -46,9 +46,12 @@ bool order = false;
 int buttonValue = 0;
 int state = 1;
 
-const int buttonPin = 7;
-const int speed = 60;
-const int turnDelay = 200;
+const int BUTTON_PIN = 7;
+
+void neutralState() {
+  motorLeft.stop();
+  motorRight.stop();
+}
 
 // --------------------------
 // ----- PROPGRAM SETUP -----
@@ -59,7 +62,7 @@ void setup() { }
 // -----  PROGRAM LOOP  -----
 // --------------------------
 void loop() {
-  buttonValue = analogRead(buttonPin);
+  buttonValue = analogRead(BUTTON_PIN);
   delay(100);
   
   if (buttonValue < 512)
@@ -77,7 +80,7 @@ void loop() {
   }
 
   switch (state) {
-    case 1: automaticPiloting();
+    case 1: automaticPiloting(follower, motorLeft, motorRight);
     case 2: programmedPiloting();
     default: neutralState();
   }
@@ -85,47 +88,9 @@ void loop() {
   oldButtonState = newButtonState;
 }
 
-// ------------------------
-// ----- ROBOT STATES -----
-// ------------------------
-void automaticPiloting() {
-  bool left = !follower.readSensor1();
-  bool right = !follower.readSensor2();
-
-  if (left && right) {
-    motorLeft.run(-speed);
-    motorRight.run(speed);
-  } else if (right) {
-    motorLeft.run(-speed);
-    motorRight.run(-speed);
-    delay(turnDelay);
-  } else if (left) {
-    motorLeft.run(speed);
-    motorRight.run(speed);
-    delay(turnDelay);                          
-  }
-}
-
+// -------------------------------
+// ----- PROGRAMMED PILOTING -----
+// -------------------------------
 void programmedPiloting() {
   // TODO
-}
-
-void neutralState() {
-  motorLeft.stop();
-  motorRight.stop();
-}
-
-// -----------------------------------------
-// ----- PROGRAMMED PILOTING FUNCTIONS -----
-// -----------------------------------------
-void gotoLeft(float angle) {
-  // TODO : affine function
-}
-
-void gotoRight(float angle) {
-  // TODO : affine function
-}
-
-void goForward(float distance) {
-  // TODO : affine function
 }
