@@ -35,6 +35,8 @@
 // ------------------------
 // ----- DEFINITIONS  -----
 // ------------------------
+MeRGBLed led(0, 2);
+
 MeDCMotor motorLeft(M1);
 MeDCMotor motorRight(M2);
 
@@ -53,7 +55,9 @@ const int TURN_DELAY = 200;
 // --------------------------
 // ----- PROPGRAM SETUP -----
 // --------------------------
-void setup() { }
+void setup() {
+  led.setpin(13);
+}
 
 // --------------------------
 // -----  PROGRAM LOOP  -----
@@ -77,9 +81,15 @@ void loop() {
   }
 
   switch (state) {
-    case 1: automaticPiloting();
-    case 2: programmedPiloting();
-    default: neutralState();
+    case 1:
+      led.setColor(0, 255, 0);
+      automaticPiloting();
+    case 2:
+      led.setColor(255, 0, 0);
+      programmedPiloting();
+    default:
+      led.setColor(0, 0, 255);
+      neutralState();
   }
 
   oldButtonState = newButtonState;
