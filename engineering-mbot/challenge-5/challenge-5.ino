@@ -46,7 +46,7 @@ bool newButtonState = false;
 bool oldButtonState = false;
 bool order = false;
 int buttonValue = 0;
-int state = 1;
+int state = 0;
 
 const int BUTTON_PIN = 7;
 const int SPEED = 60;
@@ -65,6 +65,9 @@ void setup() {
 void loop() {
   buttonValue = analogRead(BUTTON_PIN);
   delay(100);
+
+  // Pass through the neutral state to stop motors between modes
+  neutralState();
   
   if (buttonValue < 512)
     newButtonState = true;
@@ -77,21 +80,26 @@ void loop() {
   if (order) {
     state++;
     if (state == 3)
-      state = 1;
+      state = 0;
+    order = false;
   }
 
   switch (state) {
+    case 0:
+      led.setColor(0, 0, 255);
+      neutralState();
+      break;
     case 1:
       led.setColor(0, 255, 0);
       automaticPiloting();
+      break;
     case 2:
       led.setColor(255, 0, 0);
       programmedPiloting();
-    default:
-      led.setColor(0, 0, 255);
-      neutralState();
+      break;
   }
 
+  led.show();
   oldButtonState = newButtonState;
 }
 
