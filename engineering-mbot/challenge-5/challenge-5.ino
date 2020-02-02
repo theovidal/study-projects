@@ -47,11 +47,8 @@ int buttonValue = 0;
 int state = 1;
 
 const int BUTTON_PIN = 7;
-
-void neutralState() {
-  motorLeft.stop();
-  motorRight.stop();
-}
+const int SPEED = 60;
+const int TURN_DELAY = 200;
 
 // --------------------------
 // ----- PROPGRAM SETUP -----
@@ -80,7 +77,7 @@ void loop() {
   }
 
   switch (state) {
-    case 1: automaticPiloting(follower, motorLeft, motorRight);
+    case 1: automaticPiloting();
     case 2: programmedPiloting();
     default: neutralState();
   }
@@ -88,9 +85,47 @@ void loop() {
   oldButtonState = newButtonState;
 }
 
-// -------------------------------
-// ----- PROGRAMMED PILOTING -----
-// -------------------------------
+// ------------------------------
+// ----- PILOTING FUNCTIONS -----
+// ------------------------------
 void programmedPiloting() {
   // TODO
+}
+
+void automaticPiloting() {
+  bool left = !follower.readSensor1();
+  bool right = !follower.readSensor2();
+
+  if (left && right) {
+    motorLeft.run(-SPEED);
+    motorRight.run(SPEED);
+  } else if (right) {
+    motorLeft.run(-SPEED);
+    motorRight.run(-SPEED);
+    delay(TURN_DELAY);
+  } else if (left) {
+    motorLeft.run(SPEED);
+    motorRight.run(SPEED);
+    delay(TURN_DELAY);                          
+  }
+}
+
+void neutralState() {
+  motorLeft.stop();
+  motorRight.stop();
+}
+
+// ---------------------
+// ----- FUNCTIONS -----
+// ---------------------
+void gotoLeft(float angle) {
+  // TODO : affine function
+}
+
+void gotoRight(float angle) {
+  // TODO : affine function
+}
+
+void goForward(float distance) {
+  // TODO : affine function
 }
