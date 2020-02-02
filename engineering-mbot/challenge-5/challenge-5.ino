@@ -49,8 +49,15 @@ int buttonValue = 0;
 int state = 0;
 
 const int BUTTON_PIN = 7;
-const int SPEED = 60;
 const int TURN_DELAY = 200;
+
+// Our robot has a parralelism problem : the left motor is faster than the right one
+// We have to set two different speeds for the two motors.
+const int RIGHT_SPEED = 110;
+const int LEFT_SPEED = -(RIGHT_SPEED - 15);
+
+// The effective speed of the robot, in cm/s
+const int REAL_SPEED = 14.0351;
 
 // --------------------------
 // ----- PROPGRAM SETUP -----
@@ -107,7 +114,8 @@ void loop() {
 // ----- PILOTING FUNCTIONS -----
 // ------------------------------
 void programmedPiloting() {
-  // TODO
+  //goForward(20);
+  //stopRobot(3000);
 }
 
 void automaticPiloting() {
@@ -115,15 +123,15 @@ void automaticPiloting() {
   bool right = !follower.readSensor2();
 
   if (left && right) {
-    motorLeft.run(-SPEED);
-    motorRight.run(SPEED);
+    motorLeft.run(LEFT_SPEED);
+    motorRight.run(RIGHT_SPEED);
   } else if (right) {
-    motorLeft.run(-SPEED);
-    motorRight.run(-SPEED);
+    motorLeft.run(LEFT_SPEED);
+    motorRight.run(-RIGHT_SPEED);
     delay(TURN_DELAY);
   } else if (left) {
-    motorLeft.run(SPEED);
-    motorRight.run(SPEED);
+    motorLeft.run(-LEFT_SPEED);
+    motorRight.run(RIGHT_SPEED);
     delay(TURN_DELAY);                          
   }
 }
@@ -145,5 +153,19 @@ void gotoRight(float angle) {
 }
 
 void goForward(float distance) {
-  // TODO : affine function
+  motorLeft.run(LEFT_SPEED);
+  motorRight.run(RIGHT_SPEED);
+
+  // Time is obtained using the formula : t = d/v
+  // We have to add 1.25 centimeters in order to have a realistic distance
+  // The final result is in seconds, so we convert it in milliseconds for the delay function.
+  float waitTime = ((distance + 1.25) / REAL_SPEED) * 1000;
+  delay(waitTime);
+}
+
+// TODO : make the function stoppable if the button is pressed
+void stopRobot(int waitTime) {
+  motorLeft.stop();
+  motorRight.stop();
+  delay(waitTime);
 }
