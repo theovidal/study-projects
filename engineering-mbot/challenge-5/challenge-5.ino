@@ -42,8 +42,8 @@ MeDCMotor motorRight(M2);
 
 MeLineFollower follower(PORT_2);
 
-bool newButtonState = false;
 bool oldButtonState = false;
+bool newButtonState = false;
 bool order = false;
 int buttonValue = 0;
 int state = 0;
@@ -91,6 +91,12 @@ void loop() {
     order = false;
   }
 
+  /*!
+   * States :
+   * - 0 : neutral state
+   * - 1 : automatic piloting
+   * - 2 : programmed piloting
+   */
   switch (state) {
     case 0:
       led.setColor(0, 0, 255);
@@ -110,9 +116,9 @@ void loop() {
   oldButtonState = newButtonState;
 }
 
-// ------------------------------
-// ----- PILOTING FUNCTIONS -----
-// ------------------------------
+// ------------------------
+// ----- ROBOT STATES -----
+// ------------------------
 void programmedPiloting() {
   //goForward(20);
   //stopRobot(3000);
@@ -141,9 +147,9 @@ void neutralState() {
   motorRight.stop();
 }
 
-// ---------------------
-// ----- FUNCTIONS -----
-// ---------------------
+// -----------------------------------------
+// ----- PROGRAMMED PILOTING FUNCTIONS -----
+// -----------------------------------------
 void gotoLeft(float angle) {
   // TODO : affine function
 }
@@ -152,6 +158,11 @@ void gotoRight(float angle) {
   // TODO : affine function
 }
 
+/*!
+ * Make the robot go forward
+ * 
+ * @param distance The distance to travel, in centimeters
+ */
 void goForward(float distance) {
   motorLeft.run(LEFT_SPEED);
   motorRight.run(RIGHT_SPEED);
@@ -163,7 +174,12 @@ void goForward(float distance) {
   delay(waitTime);
 }
 
-// TODO : make the function stoppable if the button is pressed
+/*!
+ * Stop the robot
+ * TODO : make the function stoppable if the button is pressed
+ * 
+ * @param waitTime Milliseconds to wait before the next action
+ */
 void stopRobot(int waitTime) {
   motorLeft.stop();
   motorRight.stop();
