@@ -35,22 +35,27 @@
 // ------------------------
 // ----- DEFINITIONS  -----
 // ------------------------
-MeRGBLed led(0, 2);
 
+// Hardware
+MeRGBLed led(0, 2);
 MeDCMotor motorLeft(M1);
 MeDCMotor motorRight(M2);
-
 MeLineFollower follower(PORT_2);
 
-bool oldButtonState = false;
-bool newButtonState = false;
 bool order = false;
 int buttonValue = 0;
 int state = 0;
 int tours = 0;
+
+// Previous follower states
 bool oldRight = true;
 bool oldLeft = true;
 
+// Previous button states
+bool oldButtonState = false;
+bool newButtonState = false;
+
+// Constants
 const int BUTTON_PIN = 7;
 const int TURN_DELAY = 200;
 
@@ -134,10 +139,12 @@ void automaticPiloting() {
   if (left && right) {
     motorLeft.run(LEFT_SPEED);
     motorRight.run(RIGHT_SPEED);
+  // Left is out : go to the right
   } else if (right) {
     gotoRight(2.5);
     tours++;
     Serial.println(tours);
+  // Right is out : go to the left
   } else if (left) {
     gotoLeft(6.75);                     
   } else {
@@ -157,9 +164,11 @@ void neutralState() {
   motorRight.stop();
 }
 
-// -----------------------------------------
-// ----- PROGRAMMED PILOTING FUNCTIONS -----
-// -----------------------------------------
+// ------------------------------
+// ----- PILOTING FUNCTIONS -----
+// ------------------------------
+
+// Makes the robot going to the left. The coefficient divides inner wheel's speed, so the robot can turn.
 void gotoLeft(float coefficient) {
   while (follower.readSensor2()) {
     motorLeft.run(LEFT_SPEED / coefficient);
@@ -167,6 +176,7 @@ void gotoLeft(float coefficient) {
   }
 }
 
+// Makes the robot going to the right. The coefficient divides inner wheel's speed, so the robot can turn.
 void gotoRight(float coefficient) {
   while (follower.readSensor1()) {
     motorLeft.run(LEFT_SPEED);
