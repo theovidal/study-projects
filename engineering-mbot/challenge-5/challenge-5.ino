@@ -47,14 +47,17 @@ bool newButtonState = false;
 bool order = false;
 int buttonValue = 0;
 int state = 0;
+int tours = 0;
+bool oldRight = true;
+bool oldLeft = true;
 
 const int BUTTON_PIN = 7;
 const int TURN_DELAY = 200;
 
 // Our robot has a parralelism problem : the left motor is faster than the right one
 // We have to set two different speeds for the two motors.
-const int RIGHT_SPEED = 110;
-const int LEFT_SPEED = -(RIGHT_SPEED - 15);
+const int RIGHT_SPEED = 255;
+const int LEFT_SPEED = -(RIGHT_SPEED - 10);
 
 // The effective speed of the robot, in cm/s
 const int REAL_SPEED = 14.0351;
@@ -64,6 +67,7 @@ const int REAL_SPEED = 14.0351;
 // --------------------------
 void setup() {
   led.setpin(13);
+  Serial.begin(9600);
 }
 
 // --------------------------
@@ -71,7 +75,6 @@ void setup() {
 // --------------------------
 void loop() {
   buttonValue = analogRead(BUTTON_PIN);
-  delay(100);
 
   // Pass through the neutral state to stop motors between modes
   neutralState();
@@ -120,8 +123,8 @@ void loop() {
 // ----- ROBOT STATES -----
 // ------------------------
 void programmedPiloting() {
-  //goForward(20);
-  //stopRobot(3000);
+  //motorLeft.run(LEFT_SPEED);
+  //motorRight.run(RIGHT_SPEED);
 }
 
 void automaticPiloting() {
@@ -132,14 +135,21 @@ void automaticPiloting() {
     motorLeft.run(LEFT_SPEED);
     motorRight.run(RIGHT_SPEED);
   } else if (right) {
-    motorLeft.run(LEFT_SPEED);
-    motorRight.run(-RIGHT_SPEED);
-    delay(TURN_DELAY);
+    gotoRight(2.5);
+    tours++;
+    Serial.println(tours);
   } else if (left) {
-    motorLeft.run(-LEFT_SPEED);
-    motorRight.run(RIGHT_SPEED);
-    delay(TURN_DELAY);                          
+    gotoLeft(6.75);                     
+  } else {
+    if (oldRight) {
+      gotoRight(3);
+    } else {
+      gotoLeft(8.25);
+    }
   }
+
+  oldRight = right;
+  oldLeft = left;
 }
 
 void neutralState() {
@@ -150,38 +160,16 @@ void neutralState() {
 // -----------------------------------------
 // ----- PROGRAMMED PILOTING FUNCTIONS -----
 // -----------------------------------------
-void gotoLeft(float angle) {
-  // TODO : affine function
+void gotoLeft(float coefficient) {
+  while (follower.readSensor2()) {
+    motorLeft.run(LEFT_SPEED / coefficient);
+    motorRight.run(RIGHT_SPEED);
+  }
 }
 
-void gotoRight(float angle) {
-  // TODO : affine function
-}
-
-/*!
- * Make the robot go forward
- * 
- * @param distance The distance to travel, in centimeters
- */
-void goForward(float distance) {
-  motorLeft.run(LEFT_SPEED);
-  motorRight.run(RIGHT_SPEED);
-
-  // Time is obtained using the formula : t = d/v
-  // We have to add 1.25 centimeters in order to have a realistic distance
-  // The final result is in seconds, so we convert it in milliseconds for the delay function.
-  float waitTime = ((distance + 1.25) / REAL_SPEED) * 1000;
-  delay(waitTime);
-}
-
-/*!
- * Stop the robot
- * TODO : make the function stoppable if the button is pressed
- * 
- * @param waitTime Milliseconds to wait before the next action
- */
-void stopRobot(int waitTime) {
-  motorLeft.stop();
-  motorRight.stop();
-  delay(waitTime);
+void gotoRight(float coefficient) {
+  while (follower.readSensor1()) {
+    motorLeft.run(LEFT_SPEED);
+    motorRight.run(RIGHT_SPEED / coefficient);
+  }
 }
