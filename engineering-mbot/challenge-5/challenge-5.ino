@@ -11,22 +11,17 @@
   - Neutral : the robot is stopped and does nothing.
   The switching between modes is operated by the push button, on the top of the robot.
 
-  Right below is the license (basically : do what you want with this script) and after that, the code.
+  Right below is the license (basically : credit me if you use the script) and after that, the code.
 
-  DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
-  Version 2, December 2004
+  MIT License
 
-  Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+  Copyright (c) 2020 Exybore
 
-  Everyone is permitted to copy and distribute verbatim or modified
-  copies of this license document, and changing it is allowed as long
-  as the name is changed.
+  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 
-              DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+  The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
-  TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
-
-  0. You just DO WHAT THE FUCK YOU WANT TO.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
 #include <MeMCore.h>
