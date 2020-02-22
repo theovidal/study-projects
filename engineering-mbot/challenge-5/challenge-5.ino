@@ -2,13 +2,12 @@
   This is the fifth and one of the final challenges we had to answer in our engineering class.
   The challenge is the following :
   "Your mBot robot has to follow and complete a circuit using its line follower.
-  It must stop right behind the starting line using the integrated push button.
+  It must start just before and stop after the starting line using the method of your choice.
   You have to make your robot the fastest possible in order to beat other's.
   You can use whatever method you want, as long as it's the most efficient for you."
 
-  Our robot integrates three separated modes :
-  - Automatic piloting : the robot doesn't know the circuit and therefore has to check how the circuit is made in order to follow it;
-  - Programmed piloting : the robot knows the circuit as it's defined in the code. It stupidly executes what we want;
+  Our robot integrates two separated modes :
+  - Execution : the robot doesn't know the circuit and therefore has to check how the circuit is made in order to follow it;
   - Neutral : the robot is stopped and does nothing.
   The switching between modes is operated by the push button, on the top of the robot.
 
@@ -47,6 +46,9 @@ int buttonValue = 0;
 int state = 0;
 int tours = 0;
 
+unsigned long startTime = millis();
+unsigned long tourTime = 13.00 * 1000;
+
 // Previous follower states
 bool oldRight = true;
 bool oldLeft = true;
@@ -57,15 +59,10 @@ bool newButtonState = false;
 
 // Constants
 const int BUTTON_PIN = 7;
-const int TURN_DELAY = 200;
-
 // Our robot has a parralelism problem : the left motor is faster than the right one
 // We have to set two different speeds for the two motors.
 const int RIGHT_SPEED = 255;
-const int LEFT_SPEED = -(RIGHT_SPEED - 10);
-
-// The effective speed of the robot, in cm/s
-const int REAL_SPEED = 14.0351;
+const int LEFT_SPEED = -RIGHT_SPEED;
 
 // --------------------------
 // ----- PROPGRAM SETUP -----
@@ -94,16 +91,21 @@ void loop() {
 
   if (order) {
     state++;
+    if (state == 1)
+      startTime = millis();
     if (state == 3)
       state = 0;
     order = false;
   }
 
+  if (state == 1 && millis() - startTime > tourTime)
+    state = 2;
+
   /*!
    * States :
-   * - 0 : neutral state
-   * - 1 : automatic piloting
-   * - 2 : programmed piloting
+   * - 0 : start state (neutral)
+   * - 1 : execution
+   * - 2 : end state (neutral)
    */
   switch (state) {
     case 0:
@@ -112,11 +114,11 @@ void loop() {
       break;
     case 1:
       led.setColor(0, 255, 0);
-      automaticPiloting();
+      executionState();
       break;
     case 2:
       led.setColor(255, 0, 0);
-      programmedPiloting();
+      neutralState();
       break;
   }
 
@@ -127,12 +129,7 @@ void loop() {
 // ------------------------
 // ----- ROBOT STATES -----
 // ------------------------
-void programmedPiloting() {
-  //motorLeft.run(LEFT_SPEED);
-  //motorRight.run(RIGHT_SPEED);
-}
-
-void automaticPiloting() {
+void executionState() {
   bool left = !follower.readSensor1();
   bool right = !follower.readSensor2();
 
