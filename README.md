@@ -11,6 +11,10 @@ Here is the list of the projects I store on this repository :
 - [arduino-traffic-lights](./arduino-traffic-lights) : Traffic lights controlled with an Arduino board
 - [engineering-mbot](./engineering-mbot) : Engineering class challenges using mBot robots
 
+Find other projects related to school on these repositories :
+
+- [engineering-simulations](https://github.com/exybore/engineering-simulations) : Simulink simulations made for the engineering class.
+
 ## 🔐 Licenses
 
 In principle, all the projects are under the [Do What The Fuck You Want Public License](http://www.wtfpl.net/) because I work on them for my studies, so I don't want any acknowledgement. Moreover, most of them are made with one of my classmate, so it would be jerk to get all the glory for me.
