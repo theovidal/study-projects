@@ -10,7 +10,6 @@ Here is the list of the projects I store on this repository :
 - [arduino-christmas-garland](./arduino-christmas-garland) : A pretty and modular Christmas garland made with an Arduino
 - [arduino-traffic-lights](./arduino-traffic-lights) : Traffic lights controlled with an Arduino board
 - [engineering-mbot](./engineering-mbot) : Engineering class challenges using mBot robots
-- [voltage-divider](./voltage-divider) : An example of a voltage divider using Simscape and Simulink
 
 ## 🔐 Licenses
 
