@@ -3,6 +3,10 @@
 - [📜 Credits](#-credits)
 - [🔐 License](#-license)
 
+All the simulations :
+
+- [voltage-divider](./voltage-divider) : An example of a voltage divider using Simscape and Simulink
+
 ## 📜 Credits
 
 - Software : [MATLAB](https://mathworks.com/products/matlab.html) with [Simulink](https://mathworks.com/products/simulink.html)
