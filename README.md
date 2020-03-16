@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://exybore.becauseofprog.fr/img/avatar.jpg" width="200px" alt="Avatar"/>
+  <img src="https://exybore.becauseofprog.fr/img/avatar.png" width="200px" alt="Avatar"/>
   <h1>Exybore's school projects</h1>
   <a href="https://school.exybo.re">Website</a>
 </div>
