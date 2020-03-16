@@ -1,0 +1,9 @@
+- [**Home**](/)
+- **⚙ Engineering**
+  - [Christmas garland](/engineering/arduino-christmas-garland/)
+  - [Traffic lights](/engineering/arduino-traffic-lights/)
+  - [mBot challenges](/engineering/mbot-challenges/)
+- **🧪 Chemistry**
+  - [Reaction state](/chemistry/reaction-state/)
+- **⏏ External projects**
+  - [Engineering simulations](https://github.com/exybore/engineering-simulations)
