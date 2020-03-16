@@ -1,15 +1,15 @@
-# ⚙ Engineering class - Simulations
+# Get started
 
-<a href="https://simulations.exybo.re">Website</a>
+Welcome here ! You'll find MATLAB and Simulink simulations made for the engineering class, in various fields.
 
-🧪 Simulink simulations made for the engineering class.
+Begin your journey by navigating into this repository, using the sidebar !
 
-## 📜 Credits
+## Credits
 
 - Software : [MATLAB](https://mathworks.com/products/matlab.html) with [Simulink](https://mathworks.com/products/simulink.html)
 - Maintainer : [Exybore](https://github.com/exybore)
 
-## 🔐 License
+## License
 
         DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
                     Version 2, December 2004
