@@ -5,5 +5,7 @@
   - [mBot challenges](/engineering/mbot-challenges/)
 - **🧪 Chemistry**
   - [Reaction state](/chemistry/reaction-state/)
-- **⏏ External projects**
+- **⏏ Other school-related projects**
   - [Engineering simulations](https://github.com/exybore/engineering-simulations)
+  - [105app](https://105app.exybo.re)
+  - [105bot](https://github.com/exybore/105bot)
