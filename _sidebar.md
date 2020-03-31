@@ -9,3 +9,5 @@
   - [Application 3 : dimensional check](/logical-operators/application-3/)
 - **⏏ External projects**
   - [School projects](https://school.exybo.re)
+  - [105app](https://105app.exybo.re)
+  - [105bot](https://github.com/exybore/105bot)
