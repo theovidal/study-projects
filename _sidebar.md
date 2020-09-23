@@ -1,4 +1,7 @@
 - [**Home**](/)
+- **✏ 3D modeling**
+  - Parametric model
+  - Raspberry Pi case
 - **🔌 Electrical calculations**
   - Application 4
   - Application 6
@@ -7,6 +10,7 @@
   - Application 1 : motorized class board
   - Application 2 : brick quality check
   - [Application 3 : dimensional check](/logical-operators/application-3/)
+- **🚦 Motion study**
 - **⏏ External projects**
   - [School projects](https://school.exybo.re)
   - [105app](https://105app.exybo.re)
