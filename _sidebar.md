@@ -6,6 +6,7 @@
 - **🧪 Chemistry**
   - [Reaction state](/chemistry/reaction-state/)
 - **⏏ Other school-related projects**
-  - [Engineering simulations](https://github.com/exybore/engineering-simulations)
-  - [105app](https://105app.exybo.re)
-  - [105bot](https://github.com/exybore/105bot)
+  - [Engineering simulations](https://github.com/theovidal/engineering-simulations)
+  - [LiDAR 3D mapping](https://github.com/theovidal/mapping)
+  - [105app](https://105app.fr)
+  - [105bot](https://github.com/theovidal/105bot)
