@@ -154,3 +154,33 @@ let rec indice x l =
     indice_bis x l 0
 ```
 
+### Exercice 13
+
+```ocaml
+let rec sous_liste u x = match x with
+    | [] -> x
+    | n :: _ when n > longueur u -> []
+    | n :: tail -> let rec get_el u n i = match u with
+            | [] -> []
+            | x :: _ when i = n -> [x]
+            | x :: tail -> get_el tail n (i + 1) in
+        get_el u n 0 @ sous_liste u tail
+```
+
+### Exercice 14
+
+```ocaml
+let rec comparer_longueur a b =
+    let len_a, len_b = longueur a, longueur b in
+        if len_a < len_b then -1
+        else if len_a > len_b then 1
+        else 0
+```
+
+```ocaml
+let rec comparer_longueur_efficace a b = match a, b with
+    | [], [] -> 0
+    | [], _ -> -1
+    | _, [] -> 1
+    | _ :: x, _ :: y -> comparer_longueur_efficace x y
+```
