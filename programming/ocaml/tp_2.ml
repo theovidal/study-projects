@@ -117,10 +117,9 @@ let compresse u = match u with
 (* 5.2 *)
 
 let rec decompresse u =
-  let rec deroule c v =
-    let a, n = c in
+  let rec deroule (x, y) v =
       if n = 0 then v
-      else deroule (a, n-1) (a :: v) in
+      else deroule (x, y-1) (x :: v) in
 
   match u with
   | [] -> []

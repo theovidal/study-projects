@@ -42,5 +42,7 @@ let puissance_inf n =
 
 (* Exercice 3.3 *)
 let double a = Array.map (fun x -> 2 * x) a;;
+let mul a u = Array.map (fun x -> a * x) u;;
+let affiche u = Array.iter (fun x -> Printf.printf "%d " x) u;;
 
-double [| 2; 4; 5 |]
+affiche (mul 3 [| 2; 4; 5 |])
