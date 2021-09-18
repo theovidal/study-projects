@@ -1,4 +1,4 @@
-# TP d'informatique 1 - Initiation à OCaml
+# TP n°1 - 10/09/2021
 
 ## Quelques fonctions élémentaires
 
