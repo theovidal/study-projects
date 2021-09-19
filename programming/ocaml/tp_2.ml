@@ -105,7 +105,25 @@ let rec elimine_doublons u = match u with
 
 (* 5.1 *)
 
-let compresse u =
-  let rec compresse_aux u v c = match u, c with
-    | y :: ys, (x, k) when y = x -> 
-    | y :: ys, _ -> compresse_aux ys (v @ [c]) 
+let compresse u = match u with
+  | [] -> u
+  | x :: xs -> 
+    let rec compresse_aux u v c = match u with
+      | [] -> v @ [c]
+      | y :: ys when y = fst c -> compresse_aux ys v (y, snd c + 1)
+      | y :: ys -> compresse_aux ys (v @ [c]) (y, 1) in
+    compresse_aux xs [] (x, 1)
+
+(* 5.2 *)
+
+let rec decompresse u =
+  let rec deroule c v =
+    let a, n = c in
+      if n = 0 then v
+      else deroule (a, n-1) (a :: v) in
+
+  match u with
+  | [] -> []
+  | y :: ys -> deroule y [] @ decompresse ys;;
+
+decompresse [("a", 3); ("c", 1); ("b", 2)]
