@@ -14,7 +14,7 @@ double expo_rapide_it(double x, int n) {
 }
 
 double expo_rapide_rec(double x, int n) {
-    if (n == 1) return x;
+    if (n == 0) return 1;
 
     if (n % 2 == 0) return expo_rapide_rec(x * x, n/2);
     else return x * expo_rapide_rec(x * x, (n - 1)/2);
