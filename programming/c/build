@@ -1,5 +1,5 @@
 #!/bin/bash
-gcc -o out $1 -lm -Wall -fsanitize=address;
+gcc -o out $1 -lm -Wall -Wextra -fsanitize=address;
 if [ $? = 0 ];
 then
     shift 1;
