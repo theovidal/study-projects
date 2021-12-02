@@ -101,7 +101,7 @@ let rec prive_de u v = match u, v with
   | [], _ | _, [] -> u
   | x :: xs, y :: ys when x = y -> prive_de xs ys
   | x :: xs, y :: ys when x < y -> x :: prive_de xs v
-  | x :: xs, y :: ys -> prive_de u ys
+  | x :: xs, y :: ys -> prive_de u ys (* x > y *)
 
 prive_de [1; 2; 4; 5; 9; 10] [2; 4; 6; 8]
 

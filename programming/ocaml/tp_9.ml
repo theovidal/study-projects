@@ -77,7 +77,7 @@ let find_min u a b =
 
 let rec min_liste_a u = match u with
     | [] -> max_int
-    | x :: xs -> min x (min_liste xs)
+    | x :: xs -> min x (min_liste_a xs)
 
 let min_liste u =
   let rec aux u min = match u with

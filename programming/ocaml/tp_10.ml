@@ -80,12 +80,6 @@ let afficher f = iter_file (fun x -> print_int x; print_newline ()) f
 
 
       (* —————————————— *)
-      (*   Exercice 3   *)
-      (* —————————————— *)
-
-
-
-      (* —————————————— *)
       (*   Exercice 4   *)
       (* —————————————— *)
 
