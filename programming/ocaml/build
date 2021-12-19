@@ -1,0 +1,9 @@
+#!/bin/bash
+eval $(opam env)
+ocamlc -o out $1.ml
+if [ $? = 0 ];
+then
+    rm $1.cm*
+    shift 1;
+    ./out $@;
+fi
