@@ -1,7 +1,14 @@
 (*
-    --------------------
-    TP N°20 - 17/12/2021
-    --------------------
+   _________  ________        ___    ___ ___    ___ 
+  |\___   ___\\   __  \      |\  \  /  /|\  \  /  /|
+  \|___ \  \_\ \  \|\  \     \ \  \/  / | \  \/  / /
+       \ \  \ \ \   ____\     \ \    / / \ \    / / 
+        \ \  \ \ \  \___|      /     \/   /     \/  
+         \ \__\ \ \__\        /  /\   \  /  /\   \  
+          \|__|  \|__|       /__/ /\ __\/__/ /\ __\ 
+                             |__|/ \|__||__|/ \|__| 
+
+              VIDAL Théo 861 — 17/12/2021
 *)
 
 type op =
@@ -13,7 +20,10 @@ type expr =
   | C of int
   | N of op * expr * expr
 
-(* Exercice 1 *)
+
+      (* —————————————— *)
+      (*   Exercice 1   *)
+      (* —————————————— *)
 
 let e = N(
   Plus,
@@ -36,9 +46,9 @@ let rec eval expr =
   | C x -> x
   | N (op, exp1, exp2) -> applique op (eval exp1) (eval exp2)
 
-in assert (eval e = 73)
-
-(* Exercice 3+4 *)
+      (* ———————————————— *)
+      (*   Exercice 3+4   *)
+      (* ———————————————— *)
 
 (*
   Arbre du début : 
@@ -63,7 +73,10 @@ in assert (eval e = 73)
     b. ((3 + 4) * 2 - 5) * 1
 *)
 
-(* Exercice 5 *)
+
+      (* —————————————— *)
+      (*   Exercice 5   *)
+      (* —————————————— *)
 
 type lexeme =
   | PO
@@ -96,7 +109,10 @@ let e = N(
   )
 )
 
-(* Exercice 6 *)
+
+      (* —————————————— *)
+      (*   Exercice 6   *)
+      (* —————————————— *)
 
 let eval_post lexeme =
   let rec aux exp stack =
@@ -108,3 +124,75 @@ let eval_post lexeme =
   in aux lexeme []
 
 
+      (* —————————————— *)
+      (*   Exercice 7   *)
+      (* —————————————— *)
+
+let arbre_of_post lexeme =
+  let rec aux lex stack =
+    match lex, stack with
+    | [], [x] -> x
+    | Op op :: tail, x :: y :: rest -> aux tail [N(op, x, y)]
+    | Val x :: tail, _ -> aux tail ((C x) :: stack)
+    | _ -> failwith "Lol, c'est faux!"
+  in aux lexeme []
+
+
+      (* —————————————— *)
+      (*   Exercice 8   *)
+      (* —————————————— *)
+
+type var_exp =
+  | N of op * var_exp * var_exp
+  | C of int
+  | V of int
+
+type valuation = int array
+
+let rec max_var expr =
+  match expr with
+  | C _ -> min_int
+  | V i -> i
+  | N (_, exp1, exp2) -> max (max_var exp1) (max_var exp2)
+
+let rec eval_contexte expr valuation =
+  match expr with
+  | N (op, exp1, exp2) -> applique op (eval_contexte exp1 valuation) (eval_contexte exp2 valuation)
+  | C x -> x
+  | V x -> valuation.(x)
+
+let g = N(
+  Fois,
+  N(
+    Plus, C(2), V(0)
+  ),
+  N(
+    Moins, V(1), C(8)
+  )
+)
+
+let rec eval_partielle expr valuation =
+  match expr with
+  | C x -> expr
+  | V x -> if x < Array.length valuation then C valuation.(x) else expr
+  | N (op, exp1, exp2) ->
+    match eval_partielle exp1 valuation, eval_partielle exp2 valuation with
+    | C x, C y -> C (applique op x y)
+    | exp1', exp2' -> N(op, exp1', exp2')
+  
+
+      (* ——————————————— *)
+      (*   Exercice 10   *)
+      (* ——————————————— *)
+
+type opl = Plus | Fois
+
+type exprl =
+  | C of int
+  | V of int
+  | N of opl * exprl * exprl
+
+type expr_naire =
+  | Cn of int
+  | Vn of int
+  | Nn of opl * expr_naire list
