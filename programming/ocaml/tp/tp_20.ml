@@ -196,3 +196,18 @@ type expr_naire =
   | Cn of int
   | Vn of int
   | Nn of opl * expr_naire list
+
+(* Si on a la même opération, on retire la liste de l'intérieur du Nn *)
+let remonte op exp =
+  match exp with
+  | Nn (op', list) when op = op' -> list
+  | _ -> [exp]
+
+(* On renvoie un Nn avec l'opérateur et la concaténation des listes à gauche et à droite *)
+(* Or si on a le même opérateur, on "unwrap" la liste du Nn de gauche et/ou droite concerné pour directement concaténer cela *)
+let rec normalise exp =
+  match exp with
+  | C x -> Cn x 
+  | V x -> Vn x
+  | N (op, exp1, exp2) -> 
+    Nn (op, remonte op (normalise exp1) @ remonte op (normalise exp2))
