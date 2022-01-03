@@ -14,11 +14,9 @@
       (*   Partie 1 — Comparaison de combinaisons   *)
       (* —————————————————————————————————————————— *)
 
+(* Valeurs réelles du jeu, et surtout celles admissibles avant d'atteindre la limite de mémoire *)
 let nb_pegs = 4
 let nb_colors = 6
-
-(* Objet admissible si sa longueur vaut nb_pegs
-et que chacun de ses éléments est compris entre 0 et nb_colors - 1 *)
 type combination = int array
 
 (* Question 1 *)
@@ -58,7 +56,7 @@ let compute_similarity t u =
       (*   Partie 2 — Précalcul   *)
       (* ———————————————————————— *)
 
-(* Question 5 *)
+(* Question 5 - Version récursive choisie arbitrairement *)
 let rec pow x y =
   if y == 0 then 1
   else if y mod 2 = 0 then pow (x * x) (y / 2)
@@ -71,6 +69,8 @@ let nb_combinations = pow nb_colors nb_pegs
 (* Conversions de base 10 en base p
 Dans les tableaux, le chiffre de poids faible est à gauche (indice 0). *)
 type code = int
+
+(* base p -> base 10 : Multiplication des "chiffres" par les poids *)
 let int_of_combination u =
   let n = ref 0 in
   for i = Array.length u - 1 downto 0 do
@@ -78,18 +78,22 @@ let int_of_combination u =
   done;
   !n
 
+(* base 10 -> base p : Divisions euclidiennes successives pour obtenir les "chiffres" *)
 let combination_of_int n =
   let v = ref n in
   let u = Array.make nb_pegs 0 in
   for i = 0 to nb_pegs - 1 do
     if !v <> 0 then
-      let rem = !v mod nb_colors in
+      u.(i) <- !v mod nb_colors;
       v := !v / nb_colors;
-      u.(i) <- rem;
   done;
   u
 
-(* Question 8 *)
+(*
+  Question 8
+  -> nous aurions pu calculer tous les combination_of_int avant, mais
+  cette fonction étant exécutée en précalcul, cela n'a pas d'importance.
+*)
 let create_similarity_table () =
   Array.init nb_combinations (fun i ->
     Array.init nb_combinations (fun j ->
@@ -109,9 +113,9 @@ let similarity i j = similarity_table.(i).(j)
 (* Question 9 *)
 
 (*
-  Si s(c1, goal) = r1 alors pour que c soit bien candidat
-  il faut s(c, goal) = s(c1, goal) (aller vers le même objectif
-  en quelque sorte)
+  Pour que c1 soit bien candidat, avec c de l'historique,
+  il faut sim(c, goal) = sim(c, c1) (aller vers le même objectif,
+  en quelque sorte).
 *)
 let rec is_compatible history candidate =
   match history with
@@ -119,28 +123,29 @@ let rec is_compatible history candidate =
   | (c, s) :: xs -> similarity c candidate = s && is_compatible xs candidate
 
 
-(* Question 10 *)
+(* Question 10
+  Le code est légèrement "golfé", mais je trouvait cela plutôt élégant.
+*)
 let play_simple goal =
   let rec aux hist code =
     if code = nb_combinations then hist
     else match hist with
-    | (_, s) :: _ when s = (4, 0) -> hist
+    | (_, s) :: _ when s = (nb_pegs, 0) -> hist
     | _ -> aux (
       (if is_compatible hist code then [(code, similarity code goal)]
       else []) @ hist) (code + 1)
-  in
-  List.rev (aux [] 0)
+  in List.rev (aux [] 0)
 
 
       (* —————————————————————————————————————— *)
       (*   Partie 4 — Analyse de la stratégie   *)
       (* —————————————————————————————————————— *)
-
+      
 (* Question 11 *)
 let stats strategy =
   let avg = ref 0. in
-  let max_moves = ref 0 in
   let worst_case = ref 0 in
+  let max_moves = ref 0 in
   for code = 0 to nb_combinations - 1 do
     let nb_moves = List.length (strategy code) in
     avg := !avg +. float_of_int nb_moves;
@@ -148,7 +153,7 @@ let stats strategy =
   done;
   (!avg /. float_of_int nb_combinations, !max_moves, !worst_case)
 
-(* Question 12 *)
+(* Question 12 *) 
 (* (5.76466049382716061, 9, 1071) *)
 
 
@@ -159,41 +164,28 @@ let stats strategy =
 let int_of_similarity (wp, nwp) =
   wp * (nb_pegs + 1) + nwp
 
-(* Question 13 - Tentative naïve *)
-let card goal c list =
-  let rec aux count rest =
-    match rest with
-    | [] -> count
-    | b :: bs ->
-      aux (count + (if similarity b c = similarity goal c then 1 else 0)) bs
-  in
-  aux 0 list
+(* Question 13 *)
 
-let max_card possible_goals candidate =
-  let rec aux max_card rem_goals =
-    match rem_goals with
-    | [] -> 0
-    | b :: bs -> max max_card (card b candidate possible_goals) in
-  aux 0 possible_goals
-
-
-(* Question 13 - Tentative smart *)
-let calculate_codes list goal =
-  let rec aux codes list =
-    match list with
+(*
+  similarities_number calcule le nombre de couples de combinaisons qui
+  donnent un même nombre de similarités.
+  Les indices du tableau retourné sont donnés par int_of_similarity.
+  *)
+let similarities_number possible_goals candidate_move =
+  let rec aux codes remaining =
+    match remaining with
     | [] -> codes
     | b :: bs ->
-      let sim = int_of_similarity (similarity b goal) in
+      let sim = int_of_similarity (similarity b candidate_move) in
       codes.(sim) <- codes.(sim) + 1;
       aux codes bs 
-  in
-  aux (Array.make (pow (nb_pegs + 1) 2) 0) list
+  in aux (Array.make (pow (nb_pegs + 1) 2) 0) possible_goals
 
 let max_card possible_goals candidate_move =
-  let codes = calculate_codes possible_goals candidate_move in
+  let similarities = similarities_number possible_goals candidate_move in
   let max_card = ref 0 in
-  for i = 0 to Array.length codes - 1 do
-    max_card := max !max_card codes.(i)
+  for i = 0 to Array.length similarities - 1 do
+    max_card := max !max_card similarities.(i)
   done;
   !max_card
   
@@ -204,29 +196,35 @@ let get_greedy_move possible_goals =
     | [] -> candidate
     | c :: cs ->
       let new_card = max_card possible_goals c in
-      if new_card > card then aux cs c new_card
+      if new_card < card then aux cs c new_card
       else aux cs candidate card
-  in
-  aux possible_goals 0 0
-
+  in aux possible_goals 0 max_int
 
 (* Question 15 *)
-let get_possible_goals hist start =
-  let rec aux goals candidate =
-    if candidate = nb_combinations then goals
-    else aux
-      ((if is_compatible hist candidate then [candidate] else []) @ goals)
-      (candidate + 1)
-  in
-  aux [] start
+
+(* Calcul de B'(but, c) *)
+let get_possible_goals (c, s) = List.filter (fun b -> similarity b c = s)
+
+(* Liste de toutes les combinaisons (de 0 à nb_combinations-1) (c'est un range) *)
+let combinations_list =
+  let rec aux u i =
+    if i < 0 then u
+    else aux (i :: u) (i - 1) in
+  aux [] (nb_combinations - 1)
 
 let play_greedy goal =
-  let rec aux hist code =
+  let rec aux hist possibles code =
     if code = nb_combinations then hist
     else match hist with
+    | [] ->
+      let first = get_greedy_move combinations_list in
+      aux [(first, (similarity first goal))] combinations_list 1
     | (_, s) :: _ when s = (4, 0) -> hist
-    | _ ->
-      let move = get_greedy_move (get_possible_goals hist code) in
-      aux ((move, (similarity move goal)) :: hist) (code + 1)
-  in
-  List.rev (aux [] 0)
+    | previous :: _ ->
+      let b' = get_possible_goals previous possibles in
+      let move = get_greedy_move b' in
+      aux ((move, (similarity move goal)) :: hist) b' (move + 1)
+  in List.rev (aux [] combinations_list 0)
+
+(* Question 16 *)
+(* (4.49691358024691379, 6, 11) *)
