@@ -137,8 +137,8 @@ let rec canonique = function
       | EtA f', EtA g' -> EtA (fusionne f' g')
 
       (* Si une autre expression parmi un Et, on l'insère au milieu (pour que ça soit trié) *)
-      | EtA u', _ -> EtA (insere can_g u')
-      | _, EtA u' -> EtA (insere can_f u')
+      | EtA f', _ -> EtA (insere can_g f')
+      | _, EtA g' -> EtA (insere can_f g')
     
       (* On veut trié dans tous les cas -> utiliser fusionne *)
       | _ -> EtA (fusionne [can_f] [can_g])
