@@ -15,6 +15,11 @@ On this repository, you can explore the little projects I made for school in var
   - [Christmas garland](/engineering/arduino-christmas-garland/) (2019)
   - [Traffic lights](/engineering/arduino-traffic-lights/) (2019)
   - [mBot challenges](/engineering/mbot-challenges/) (2020)
+- **Engineering**
+  - [3D modeling](/engineering/3d-modeling) (2019) 3D models made on computer to create or replicate real life objects ; Some of them are designed to be 3D-printed
+  - [Electrical calculations](/engineering/electrical-calculations) (2019) : models to test results on electrical circuits
+  - [Logical operators](/engineering/logical-calculators) (2019) : logical circuits to implement in real life algorithms
+  - [Motion study](/engineering/motion-study) (2020) : basic 2D models to study pieces and their interactions, based on defined parameters
 - **🔭 Physics**
     - [RC circuit](/physics/rc-circuit) (2021)
     - [Laplace equation](/physics/laplace-equation) (2022)
@@ -28,6 +33,27 @@ On this repository, you can explore the little projects I made for school in var
   - [👨‍🎓 TIPE 2023 - The city](https://github.com/theovidal/tipe) (2022-2023) : Tracing of paths for reconnaissance of an earthquake zone by drone
   - [🚦 Vehicule vision](https://github.com/theovidal/vehicule-vision) (2024) : Detection of red traffic lights using conventional image processing in MATLAB
 
-## 🔐 Licenses
+## 📜 Credits
 
-In principle, all the projects are under the [Do What The Fuck You Want Public License](http://www.wtfpl.net/) because I work on them for my studies, so I don't want any acknowledgement. Moreover, most of them are made with one of my classmate, so it would be jerk to get all the glory for me.
+- Softwares:
+  - [MATLAB](https://mathworks.com/products/matlab.html) with [Simulink](https://mathworks.com/products/simulink.html)
+  - [SOLIDWORKS](https://www.solidworks.com/)
+- Maintainer: [Théo Vidal](https://github.com/theovidal)
+
+## 🔐 License
+
+        DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+                    Version 2, December 2004
+
+Copyright (C) 2004 Sam Hocevar <sam@hocevar.net>
+
+Everyone is permitted to copy and distribute verbatim or modified
+copies of this license document, and changing it is allowed as long
+as the name is changed.
+
+            DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
+
+TERMS AND CONDITIONS FOR COPYING, DISTRIBUTION AND MODIFICATION
+
+0. You just DO WHAT THE FUCK YOU WANT TO.
+

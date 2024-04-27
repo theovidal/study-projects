@@ -1,3 +1,5 @@
 .vscode
 .idea
 desktop.ini
+*.slx.autosave
+
