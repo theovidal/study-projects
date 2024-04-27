@@ -16,8 +16,8 @@ On this repository, you can explore the little projects I made for school in var
   - [Traffic lights](/engineering/arduino-traffic-lights/)
   - [mBot challenges](/engineering/mbot-challenges/)
 - **🔭 Physics**
-    - [Laplace equation](/physics/laplace-equa)
-    - [First order RC circuit](/physics/first-order-rc)
+    - [Laplace equation](/physics/laplace-equation)
+    - [RC circuit](/physics/rc-circuit)
     - [Disrupted rotator](/physics/disrupted-rotator)
 - **⌨️ Programming**
   - [OCaml](/programming/ocaml)
