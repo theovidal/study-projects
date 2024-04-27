@@ -30,6 +30,7 @@ On this repository, you can explore the little projects I made for school in var
   - [📑 105app](https://github.com/theovidal/105app) (2020) : Website to store my school revisions
   - [📆 105bot](https://github.com/theovidal/105bot) (2020) : Discord bot to bring organization tools on Discord : agenda, polls, tasks, notes...
   - [🔦 LiDAR 3D mapping](https://github.com/theovidal/mapping) (2021) : 3D mapping using a LiDAR scanner
+  - [🧠🧗‍♂️ Beta project](https://github.com/theovidal/beta-project) (2021) : neural network to classify climbing routes
   - [👨‍🎓 TIPE 2023 - The city](https://github.com/theovidal/tipe) (2022-2023) : Tracing of paths for reconnaissance of an earthquake zone by drone
   - [🚦 Vehicule vision](https://github.com/theovidal/vehicule-vision) (2024) : Detection of red traffic lights using conventional image processing in MATLAB
 
