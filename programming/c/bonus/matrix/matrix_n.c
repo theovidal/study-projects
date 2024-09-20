@@ -43,12 +43,35 @@ int get_index(Matrix* matrix, int indexes[]) {
     return index;
 }
 
+float _get_case_raw(Matrix* matrix, int index) {
+    return matrix->content[index];
+}
+
 float get_case(Matrix* matrix, int indexes[]) {
     return matrix->content[get_index(matrix, indexes)];
 }
 
 void set_case(Matrix *matrix, int indexes[], float x) {
     matrix->content[get_index(matrix, indexes)] = x;
+}
+
+void _iter(Matrix* matrix, float (*f)(int, float), int iteration, int* iterations) {
+    if (iteration == 0) {
+        iterations = (int*)malloc(matrix->dimension * sizeof(int));
+    }
+    if (iteration == matrix->dimension) {
+        int index = get_index(&matrix, iterations);
+        f(index, matrix->content[index]);
+    } else {
+        for (int i = 0; i < matrix->dimensions[iteration]; i++) {
+            iterations[iteration] = i;
+            _iter(matrix, f, iteration + 1, iterations);
+        }
+    }
+}
+
+void apply_function(Matrix* matrix, float (*f)(int, float)) {
+    _iter(matrix, f, 0, NULL);
 }
 
 void _sum_loop(Matrix* result, Matrix* m1, Matrix* m2, int iteration, int* iterations) {
@@ -62,6 +85,18 @@ void _sum_loop(Matrix* result, Matrix* m1, Matrix* m2, int iteration, int* itera
             _sum_loop(result, m1, m2, iteration + 1, iterations);
         }
     }   
+}
+
+Matrix sum2(Matrix m1, Matrix m2) {
+    Matrix result;
+    result.dimension = m1.dimension;
+    allocate_matrix(&result, m1.dimensions);
+    apply_function(&result, lambda(float,(int i, float _),{
+        float x1 = _get_case_raw(&m1, i);
+        float x2 = _get_case_raw(&m2, i);
+        return x1 + x2;
+    });
+    return result;
 }
 
 Matrix sum(Matrix m1, Matrix m2) {
@@ -129,7 +164,7 @@ int main(void) {
     Matrix m2;
     m2.dimension = 4;
     make_matrix_from_array(&m2, dimensions, values);
-    Matrix result = sum(matrix, m2);
+    Matrix result = sum2(matrix, m2);
     printf("%f\n", get_case(&result, indexes));
 
     free_matrix(&matrix);

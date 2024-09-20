@@ -233,5 +233,5 @@ let floyd_warshall m =
 let reconstruit prochain i j =
   if i = j then [i] (* Un sommet est toujours accessible depuis lui-même *)
   else match prochain.(i).(j) with
-  | None -> failwith "Pas accessible"
-  | Some patatartiner -> patatartiner :: reconstruit prochain k j
+  | None -> failwith "Pas accessible"
+  | Some k -> k :: reconstruit prochain k j

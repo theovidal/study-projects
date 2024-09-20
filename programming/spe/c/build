@@ -1,0 +1,7 @@
+#!/bin/bash
+gcc -o out $1 -lm -Wall -Wextra -Wvla -fsanitize=address,undefined;
+if [ $? = 0 ];
+then
+    shift 1;
+    ./out $@;
+fi

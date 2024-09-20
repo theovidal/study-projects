@@ -1,3 +1,14 @@
+(*
+   _________  ________        ___    ___ ___    ___ ___    ___ ___  ___      ___ 
+  |\___   ___\\   __  \      |\  \  /  /|\  \  /  /|\  \  /  /|\  \|\  \    /  /|
+  \|___ \  \_\ \  \|\  \     \ \  \/  / | \  \/  / | \  \/  / | \  \ \  \  /  / /
+       \ \  \ \ \   ____\     \ \    / / \ \    / / \ \    / / \ \  \ \  \/  / / 
+        \ \  \ \ \  \___|      /     \/   /     \/   /     \/   \ \  \ \    / /  
+         \ \__\ \ \__\        /  /\   \  /  /\   \  /  /\   \    \ \__\ \__/ /   
+          \|__|  \|__|       /__/ /\ __\/__/ /\ __\/__/ /\ __\    \|__|\|__|/    
+                             |__|/ \|__||__|/ \|__||__|/ \|__|                                                                                                  
+*)
+
 (* Exercice 3 *)
 let p_ex = [|3; 8; 5; 1; 6; 1; 2; 6; 6; 1; 7; 8; 9; 12; 4; 1; 5; 7; 11; 4; 1; 5; 12; 13|]
 let v_ex = [|1; 2; 6; 3; 7; 8; 2; 3; 4; 7; 5; 2; 12; 8; 5; 3; 7; 10; 8; 7; 4; 15; 7; 20|]
@@ -22,14 +33,48 @@ let sac_instrumente p v pmax =
     | _, d when d < 0 -> min_int
     | 0, d -> 0
     | _ ->
-      let valeur_sans = aux (k - 1) d in
-      let valeur_avec = v.(k - 1) + aux (k - 1) (d - p.(k - 1)) in
-      max valeur_sans valeur_avec
+    let valeur_sans = aux (k - 1) d in
+    let valeur_avec = v.(k - 1) + aux (k - 1) (d - p.(k - 1)) in
+    max valeur_sans valeur_avec
   in let valeur = aux (Array.length p) pmax in
   valeur, !nb_appels
 
 
 (* Exercice 5 *)
+let sac_mem p v pmax =
+  let n = Array.length v in
+  let t = Array.make_matrix n (pmax + 1) (-1) in
+  let rec aux k d =
+    match k, d with
+    | 0, _ -> 0
+    | _, d when d < 0 -> max_int
+    | _ ->
+      if t.(k).(d) = (-1) then begin
+        let avec_k = v.(k - 1) + aux (k - 1) (d - p.(k - 1)) in
+        let sans_k = aux (k - 1) d in
+        t.(k).(d) <- min avec_k sans_k
+      end;
+      t.(k).(d)
+  in aux n pmax
+
+let sac_dyn p v pmax =
+  let n = Array.length p in
+  let t = Array.make_matrix (n + 1) (pmax + 1) (-1) in
+  for d = 0 to pmax do
+    t.(0).(d) <- 0
+  done;
+  let score k d = if d < 0 then min_int else t.(k).(d) in
+  for k = 1 to n do
+    for d = 0 to pmax do
+      let valeur_sans = score (k - 1) d in
+      let valeur_avec =
+        v.(k - 1) + score (k - 1) (d - p.(k - 1))
+      in t.(k).(d) <- max valeur_sans valeur_avec
+    done;
+  done;
+  t.(n).(pmax)
+
+(* Exercice 7 -> n'a pas été terminé *)
 let sac_mem p v pmax =
   let n = Array.length p in
   let t = Array.make_matrix (n + 1) (pmax + 1) (None, []) in
@@ -50,20 +95,3 @@ let sac_mem p v pmax =
           t.(k).(d) <- Some va, (k - 1) :: ta ; va, (k - 1) :: ta
         end
   in aux n pmax 
-
-let sac_dyn p v pmax =
-  let n = Array.length p in
-  let t = Array.make_matrix (n + 1) (pmax + 1) (-1) in
-  for d = 0 to pmax do
-    t.(0).(d) <- 0
-  done;
-  let score k d = if d < 0 then min_int else t.(k).(d) in
-  for k = 1 to n do
-    for d = 0 to pmax do
-      let valeur_sans = score (k - 1) d in
-      let valeur_avec =
-        v.(k - 1) + score (k - 1) (d - p.(k - 1))
-      in t.(k).(d) <- max valeur_sans valeur_avec
-    done;
-  done;
-  t.(n).(pmax)

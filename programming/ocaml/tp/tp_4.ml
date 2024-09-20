@@ -101,7 +101,14 @@ let echange t i j =
 let insertion_en_place t i =
   for k = i downto 1 do
     if t.(k) < t.(k - 1) then echange t k (k - 1)
-  done;
+  done
+
+
+let tri_insertion_tableau t =
+  for i = 0 to Array.length t - 1 do
+    insertion_en_place t i
+  done
+
 
 let teste_insertion_en_place () =
   let teste t i t' =
@@ -117,10 +124,6 @@ let teste_insertion_en_place () =
   assert (teste [|2; 3; 5; 7; 5|] 4 [|2; 3; 5; 5; 7|]);
   assert (teste [|2; 3; 5; 7; 8|] 4 [|2; 3; 5; 7; 8|])
 
-let tri_insertion_tableau t =
-  for i = 0 to Array.length t - 1 do
-    insertion_en_place t i
-  done;
 
 let teste_tri_insertion_tableau () =
   let teste t =
