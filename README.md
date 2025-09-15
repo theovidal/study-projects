@@ -1,44 +1,53 @@
 # Théo's study projects
 
 On this repository, you can explore the little projects I made for my studies in various 
-(scientific) fields : mathematics, physics, engineering, programming...
+STEM fields, especially physics, engineering and IT.
 
-- 2023-present: [ENSTA Paris](https://www.ensta-paris.fr/en/node) (Master of Engineering)
-- 2021-2023: Lycée du Parc, Lyon (French "Preparatory class": intensive courses in maths, physics and IT)
-- 2019-2021: Lycée Polyvalent J.-M. Carriat (High school)
+## 2023-present: Master of Engineering, [ENSTA Paris](https://www.ensta-paris.fr/en/node)
 
-## 📋 Table of Contents
+- [✈️ AIeroLab](https://github.com/theovidal/aierolab) (March-May 2025): ️ Simulating and optimising the aerodynamics of an airfoil using Machine Learning
+- [💧 Lattice Boltzmann simulation of the backward-facing step](./mechanics/lattice-boltzmann-backward-facing-step) (May 2025)
+- [🍯 IPT "Bouncing Honey"](https://github.com/theovidal/ipt-bouncing-honey) (September 2024 - February 2025): study of honey flow for the International Physicists' Tournament 
+- [🧠🧗‍♂️ Beta project](https://github.com/theovidal/beta-project) (Summer 2024) : neural network to classify climbing routes
+- [🚦 Vehicule vision](https://github.com/theovidal/vehicule-vision) (November 2023 - February 2024): Detection of red traffic lights using conventional image processing in MATLAB
 
-- **🧪 Chemistry**
-  - [Reaction state](/chemistry/reaction-state/) (2019)
-- **🔌 Electronics**
-  - [Christmas garland](/engineering/arduino-christmas-garland/) (2019)
-  - [Traffic lights](/engineering/arduino-traffic-lights/) (2019)
-  - [mBot challenges](/engineering/mbot-challenges/) (2020)
-- **⚙️ Engineering**
-  - [3D modeling](/engineering/3d-modeling) (2019) 3D models made on computer to create or replicate real life objects ; Some of them are designed to be 3D-printed
-  - [Electrical calculations](/engineering/electrical-calculations) (2019) : models to test results on electrical circuits
-  - [Logical operators](/engineering/logical-calculators) (2019) : logical circuits to implement in real life algorithms
-  - [Motion study](/engineering/motion-study) (2020) : basic 2D models to study pieces and their interactions, based on defined parameters
-- **🔭 Physics**
-  - [RC circuit](/physics/rc-circuit) (2021)
-  - [Laplace equation](/physics/laplace-equation) (2022)
-  - [Disrupted rotator](/physics/disrupted-rotator) (2024)
-- **⌨️ Programming**
-  - [CPGE 1st year](/programming/sup) (2021-2022)
-  - [CPGE 2nd year](/programming/spe) (2022-2023)
-  - **My best work:** these algorithms were implemented from scratch either in C or OCaml
-    - [Tic-Tac-Toe in console](/programming/spe/c/tp_14)
-    - [KNN algorithm for MNIST datasets](/programming/spe/c/tp_20)
-    - [Compress/Uncompress file using LZW](/programming/sup/c/tp_51)
-    - [Sudoku solver using a SAT solver](/programming/sup/c/tp_49)
-- **⏏ Other school-related projects**
-  - [📑 105app](https://github.com/theovidal/105app) (2020) : Website to store my school revisions
-  - [📆 105bot](https://github.com/theovidal/105bot) (2020) : Discord bot to bring organization tools on Discord : agenda, polls, tasks, notes...
-  - [🔦 LiDAR 3D mapping](https://github.com/theovidal/mapping) (2021) : 3D mapping using a LiDAR scanner
-  - [🧠🧗‍♂️ Beta project](https://github.com/theovidal/beta-project) (2021) : neural network to classify climbing routes
-  - [👨‍🎓 TIPE 2023 - The city](https://github.com/theovidal/tipe) (2022-2023) : Tracing of paths for reconnaissance of an earthquake zone by drone
-  - [🚦 Vehicule vision](https://github.com/theovidal/vehicule-vision) (2024) : Detection of red traffic lights using conventional image processing in MATLAB
+Smaller projects:
+- [Finite Volume method for the 1D shallow water equations](./mechanics/fv-shallow-water/report.pdf) (March 2025) 
+- [Solving Stokes equation using the Finite Element Method](./mechanics/stokes-equation-simulation) (November 2023)
+- [Disrupted rotator](/physics/disrupted-rotator) (2024): MATLAB script to solve the non-linear dynamical system associated to a perturbated rotator
+
+## 2021-2023: Science and IT class "Classe préparatoire" – Lyon, France
+
+Final project:
+- [👨‍🎓 Sismic UAV planner](https://github.com/theovidal/sismic-uav-planner) (2022-2023): Trajectory planning for a post-seismic reconnaissance drone
+
+**🔭 Physics:**
+- [Laplace equation](/physics/laplace-equation) (2022)
+- [RC circuit](/physics/rc-circuit) (2021)
+
+**💻 IT:** some examples of algorithms that were implemented from scratch either in C or OCaml
+- [Tic-Tac-Toe in console](/programming/spe/c/tp_14)
+- [KNN algorithm for MNIST datasets](/programming/spe/c/tp_20)
+- [Compress/Uncompress file using LZW](/programming/sup/c/tp_51)
+- [Sudoku solver using a SAT solver](/programming/sup/c/tp_49)
+
+Studied concepts include tress, graphs, priority queues, algorithm families (divide and conquer, dynamic programming, greedy algorithms, scheduling, backtracking), logic, languages and grammars, databases, concurrency, game theory, probabilistic algorithms (Las Vegas, Monte Carlo), supervised and unsupervided learning (KNN, K-means, Clustering, IDA3)
+
+## 2019-2021: High school diploma in Mathematics, Physics and Engineering
+
+**🗃 Large projects:**
+- [🔦 3D cartography platform](https://github.com/theovidal/3d-cartography-platform) (2021): 3D cartography using a remote LiDAR platform with live preview (Engineering project)
+- [📆 105bot](https://github.com/theovidal/105bot) (2020): Discord bot to bring organization tools on Discord : agenda, polls, tasks, notes...
+
+**⚙️ Engineering**
+- [Motion study](/engineering/motion-study) (2020) : basic 2D models to study pieces and their interactions, based on defined parameters
+- [3D modeling](/engineering/3d-modeling) (2019) 3D models made on computer to create or replicate real life objects ; Some of them are designed to be 3D-printed
+- [Electrical calculations](/engineering/electrical-calculations) (2019) : models to test results on electrical circuits
+- [Logical operators](/engineering/logical-calculators) (2019) : logical circuits to implement in real life algorithms
+
+**🔌 Arduino electronics:**
+- [mBot challenges](/engineering/mbot-challenges/) (2019): a speed competition using the mBot framework, coded in Arduino
+- Introductory electronics projects ([Christmas garland](/engineering/arduino-christmas-garland/), [Traffic lights](/engineering/arduino-traffic-lights/))
 
 ## 📜 Credits
 
