@@ -6,7 +6,7 @@ STEM fields, especially physics, engineering and IT.
 ## 2023-present: Master of Engineering, [ENSTA Paris](https://www.ensta-paris.fr/en/node)
 
 - [✈️ AIeroLab](https://github.com/theovidal/aierolab) (March-May 2025): ️ Simulating and optimising the aerodynamics of an airfoil using Machine Learning
-- [💧 Lattice Boltzmann simulation of the backward-facing step](./mechanics/lattice-boltzmann-backward-facing-step) (May 2025)
+- [💧 Lattice Boltzmann simulation of the backward-facing step](./mechanics/lattice-boltzmann-backward-facing-step/Projet_VIDAL.ipynb) (May 2025)
 - [🍯 IPT "Bouncing Honey"](https://github.com/theovidal/ipt-bouncing-honey) (September 2024 - February 2025): study of honey flow for the International Physicists' Tournament 
 - [🧠🧗‍♂️ Beta project](https://github.com/theovidal/beta-project) (Summer 2024) : neural network to classify climbing routes
 - [🚦 Vehicule vision](https://github.com/theovidal/vehicule-vision) (November 2023 - February 2024): Detection of red traffic lights using conventional image processing in MATLAB
