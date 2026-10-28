@@ -1,0 +1,26 @@
+## Maintainer: Baris Telmen
+
+services:
+  jupyter-mfront-ms201:
+    image: ${image}
+    container_name: ${container_name}
+    hostname: ${hostname}
+    restart: unless-stopped
+    ports:
+      - 8888:${JUPYTER_PORT}
+    networks:
+      internal-network:
+        ipv4_address: ${ip}
+    volumes:
+        - ./data:/home/boltzmann/work
+    env_file:
+      - .env
+
+networks:
+  internal-network:
+    name: ${network_name}
+    driver: bridge
+    ipam:
+      config:
+        - subnet: ${subnet}
+          gateway: ${gateway}
